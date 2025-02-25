@@ -1,17 +1,19 @@
 <div class="contenido-principal">
-    <mat-card class="heroes-card" appearance="outlined">
-        <mat-card-header>
-            <mat-card-title>Nombre del heroe</mat-card-title>
-        </mat-card-header>
-        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-        <mat-card-content>
-        <p>
-            Aca va el poder del super heroe
-        </p>
-        </mat-card-content>
-        <mat-card-actions>
-        <button mat-button>Editar</button>
-        <button mat-button>Eliminar</button>
-        </mat-card-actions>
-    </mat-card>
-</div>
+    <mat-grid-list cols="3" rowHeight="1:1">
+      <mat-grid-tile *ngFor="let heroe of heroes()">
+        <mat-card class="heroes-card" appearance="outlined">
+          <mat-card-header>
+            <mat-card-title>{{ heroe.nombre }}</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Imagen del héroe">
+          <mat-card-content>
+            <p>{{ heroe.poder }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="editarHeroe(heroe.id)">Editar</button>
+            <button mat-button (click)="eliminarHeroe(heroe.id)">Eliminar</button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
