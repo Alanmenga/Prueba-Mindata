@@ -9,7 +9,11 @@ export class HeroesService {
     { id: 1, nombre: 'Iron Man', poder: 'Intelligencia superior' },
     { id: 2, nombre: 'Spider-Man', poder: 'Tirar tela de araña' },
     { id: 3, nombre: 'Hulk', poder: 'Super fuerza' },
-    { id: 4, nombre: 'Thor', poder: 'Dios del trueno' }
+    { id: 4, nombre: 'Thor', poder: 'Dios del trueno' },
+    { id: 5, nombre: 'Thor', poder: 'Dios del trueno' },
+    { id: 6, nombre: 'Thor', poder: 'Dios del trueno' },
+    { id: 7, nombre: 'Thor', poder: 'Dios del trueno' },
+    { id: 8, nombre: 'Thor', poder: 'Dios del trueno' }
   ];
 
   constructor() {}

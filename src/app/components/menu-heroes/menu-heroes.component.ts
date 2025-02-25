@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal  } from '@angular/core';
+import { Component, effect, inject, signal, ViewChild  } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HeroesService } from '../../services/heroes.service';
@@ -9,26 +9,46 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { ModalAgregarHeroeComponent } from '../shared/modal-agregar-heroe/modal-agregar-heroe.component';
 import { ModalEditarHeroeComponent } from '../shared/modal-editar-heroe/modal-editar-heroe.component';
 import { ModalEliminarHeroeComponent } from '../shared/modal-eliminar-heroe/modal-eliminar-heroe.component';
 
 @Component({
   selector: 'app-menu-heroes',
-  imports: [NgFor, MatCardModule, MatButtonModule, MatGridListModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule],
+  imports: [NgFor, MatCardModule, MatPaginatorModule, MatButtonModule, MatGridListModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule],
   templateUrl: './menu-heroes.component.html',
   styleUrl: './menu-heroes.component.css'
 })
 export class MenuHeroesComponent {
   private heroesService = inject(HeroesService)
+  readonly dialog = inject(MatDialog);
+
   heroes = signal(this.heroesService.getHeroes());
   value = '';
-  readonly dialog = inject(MatDialog);
+
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  paginatedHeroes: any = signal([]);
 
   constructor() {
     effect(() => {
-      this.heroes.set(this.heroesService.getHeroes());
+      this.updatePaginatedHeroes();
     });
+  }
+
+  ngAfterViewInit() {
+    this.paginator.page.subscribe(() => {
+      this.updatePaginatedHeroes();
+    });
+    //esto va dos veces para que se ejecute en una primera carga
+    this.updatePaginatedHeroes(); 
+  }
+
+  updatePaginatedHeroes() {
+    const startIndex = this.paginator ? this.paginator.pageIndex * this.paginator.pageSize : 0;
+    const endIndex = this.paginator ? startIndex + this.paginator.pageSize : this.heroes().length;
+    this.paginatedHeroes.set(this.heroes().slice(startIndex, endIndex));
   }
   
   eliminarHeroe(id: number) {
@@ -39,6 +59,7 @@ export class MenuHeroesComponent {
     dialogRef.afterClosed().subscribe((eliminadoHeroe) => {
       if (eliminadoHeroe) {
         this.heroes.set(this.heroesService.getHeroes());
+        this.updatePaginatedHeroes();
       }
     });
   }
@@ -49,6 +70,7 @@ export class MenuHeroesComponent {
     dialogRef.afterClosed().subscribe((nuevoHeroe) => {
       if (nuevoHeroe) {
         this.heroes.set(this.heroesService.getHeroes());
+        this.updatePaginatedHeroes();
       }
     });
   }
@@ -61,6 +83,7 @@ export class MenuHeroesComponent {
     dialogRef.afterClosed().subscribe((editadoHeroe) => {
       if (editadoHeroe) {
         this.heroes.set(this.heroesService.getHeroes());
+        this.updatePaginatedHeroes();
       }
     });
   }
