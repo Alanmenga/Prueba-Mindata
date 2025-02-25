@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAgregarHeroeComponent } from '../shared/modal-agregar-heroe/modal-agregar-heroe.component';
+import { ModalEditarHeroeComponent } from '../shared/modal-editar-heroe/modal-editar-heroe.component';
 
 @Component({
   selector: 'app-menu-heroes',
@@ -28,10 +29,6 @@ export class MenuHeroesComponent {
       this.heroes.set(this.heroesService.getHeroes());
     });
   }
-
-  editarHeroe(id: number) {
-    console.log('Editar héroe con ID:', id);
-  }
   
   eliminarHeroe(id: number) {
     console.log('Héroe eliminado con ID:', id);
@@ -47,4 +44,16 @@ export class MenuHeroesComponent {
     });
   }
 
+  editarHeroe(id: number) {
+    const dialogRef = this.dialog.open(ModalEditarHeroeComponent, {
+      data: { id }
+    });
+
+    dialogRef.afterClosed().subscribe((editadoHeroe) => {
+      if (editadoHeroe) {
+        this.heroes.set(this.heroesService.getHeroes());
+      }
+    });
+  }
+  
 }

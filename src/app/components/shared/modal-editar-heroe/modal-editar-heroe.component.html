@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Editar Héroe</h2>
+
+<mat-dialog-content>
+  <form #heroeForm="ngForm">
+    <mat-form-field class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput [(ngModel)]="heroe.nombre" name="nombre" required>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Poder</mat-label>
+      <input matInput [(ngModel)]="heroe.poder" name="poder" required>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="heroe" cdkFocusInitial [disabled]="!heroeForm.form.valid" (click)="editarHeroe()">Guardar</button>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>
