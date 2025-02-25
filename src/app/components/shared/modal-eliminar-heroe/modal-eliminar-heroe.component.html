@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Eliminar Héroe</h2>
+<mat-dialog-content>
+<mat-label>Seguro desea eliminar a {{heroe.nombre}}?</mat-label>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="heroe" cdkFocusInitial (click)="eliminarHeroe()">Eliminar</button>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

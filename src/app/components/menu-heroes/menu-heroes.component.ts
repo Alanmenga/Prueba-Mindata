@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalAgregarHeroeComponent } from '../shared/modal-agregar-heroe/modal-agregar-heroe.component';
 import { ModalEditarHeroeComponent } from '../shared/modal-editar-heroe/modal-editar-heroe.component';
+import { ModalEliminarHeroeComponent } from '../shared/modal-eliminar-heroe/modal-eliminar-heroe.component';
 
 @Component({
   selector: 'app-menu-heroes',
@@ -31,7 +32,15 @@ export class MenuHeroesComponent {
   }
   
   eliminarHeroe(id: number) {
-    console.log('Héroe eliminado con ID:', id);
+    const dialogRef = this.dialog.open(ModalEliminarHeroeComponent, {
+      data: { id }
+    });
+
+    dialogRef.afterClosed().subscribe((eliminadoHeroe) => {
+      if (eliminadoHeroe) {
+        this.heroes.set(this.heroesService.getHeroes());
+      }
+    });
   }
 
   agregarHeroe() {
