@@ -4,17 +4,21 @@ import {MatButtonModule} from '@angular/material/button';
 import { HeroesService } from '../../services/heroes.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { NgFor } from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
+import {FormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-menu-heroes',
-  imports: [NgFor, MatCardModule, MatButtonModule, MatGridListModule],
+  imports: [NgFor, MatCardModule, MatButtonModule, MatGridListModule, MatIconModule, FormsModule, MatInputModule, MatFormFieldModule],
   templateUrl: './menu-heroes.component.html',
   styleUrl: './menu-heroes.component.css'
 })
 export class MenuHeroesComponent {
   private heroesService = inject(HeroesService)
   heroes = signal(this.heroesService.getHeroes());
-
+  value = '';
 
   constructor() {
     effect(() => {
@@ -28,6 +32,10 @@ export class MenuHeroesComponent {
   
   eliminarHeroe(id: number) {
     console.log('Héroe eliminado con ID:', id);
+  }
+
+  agregarHeroe() {
+
   }
 
 }

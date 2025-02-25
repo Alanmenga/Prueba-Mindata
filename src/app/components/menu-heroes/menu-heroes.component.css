@@ -3,8 +3,15 @@
 }
 
 .contenido-principal{
-    margin-top: 30px;
-    margin-left: 30px;
+    padding: 50px;
 }
 
-
+.example-form-field {
+    width: 100%;
+    max-width: 400px; 
+}
+  
+mat-icon[matPrefix] {
+    color: gray; /* Color del ícono de lupa */
+    margin-right: 8px; /* Espaciado entre ícono y texto */
+}
