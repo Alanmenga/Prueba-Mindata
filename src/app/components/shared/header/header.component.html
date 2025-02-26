@@ -1,13 +1,14 @@
 <mat-toolbar>
     <div class="titulo-principal">
-        <span>Heroes-App</span>
+      <span>Heroes-App</span>
     </div>
     <div>
-        <button mat-button>
-            <span>Heroes</span>
-        </button>
-        <button mat-button>
-            <span>Info</span>
-        </button>
+      <button mat-button [routerLink]="'/menu-heroes'">
+        <span>Heroes</span>
+      </button>
+      <button mat-button [routerLink]="'/info'">
+        <span>Info</span>
+      </button>
     </div>
-</mat-toolbar>
+  </mat-toolbar>
+  
