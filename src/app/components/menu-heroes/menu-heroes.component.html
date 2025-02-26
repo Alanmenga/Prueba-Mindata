@@ -3,7 +3,7 @@
         <mat-form-field class="example-form-field">
             <mat-label>Buscar</mat-label>
             <mat-icon matPrefix>search</mat-icon>
-            <input matInput type="text" [(ngModel)]="value" placeholder="Escribe aquí...">
+            <input matInput type="text" [(ngModel)]="value" (keypress)="onKeyPress($event)">
           </mat-form-field>
           <button mat-fab extended class="btn-agregar" (click)="agregarHeroe()">
             <mat-icon>add</mat-icon>
