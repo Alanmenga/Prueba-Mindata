@@ -5,17 +5,19 @@
             <mat-icon matPrefix>search</mat-icon>
             <input matInput type="text" [(ngModel)]="value" placeholder="Escribe aquí...">
           </mat-form-field>
-          <button mat-button (click)="agregarHeroe()">Agregar Heroe</button>
+          <button mat-fab extended class="btn-agregar" (click)="agregarHeroe()">
+            <mat-icon>add</mat-icon>
+            Agregar Heroe
+          </button>
     </div>
 
     <div>
-        <mat-grid-list cols="3" rowHeight="1:1">
+        <mat-grid-list cols="3" rowHeight="2:1" >
             <mat-grid-tile *ngFor="let heroe of paginatedHeroes()">
               <mat-card class="heroes-card" appearance="outlined">
                 <mat-card-header>
                   <mat-card-title>{{ heroe.nombre }}</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Imagen del héroe">
                 <mat-card-content>
                   <p>{{ heroe.poder }}</p>
                 </mat-card-content>

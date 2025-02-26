@@ -15,3 +15,7 @@ mat-icon[matPrefix] {
     color: gray; /* Color del ícono de lupa */
     margin-right: 8px; /* Espaciado entre ícono y texto */
 }
+
+.btn-agregar{
+    margin-left: 30px;
+}
