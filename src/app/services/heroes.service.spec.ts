@@ -59,13 +59,13 @@ describe('HeroesService', () => {
   });
 
   it('debería filtrar héroes por nombre con `searchHeroes()`', () => {
-    const resultado = service.searchHeroes('man');
+    const resultado = service.searchByName('man');
     expect(resultado.length).toBeGreaterThan(0);
     expect(resultado.every(h => h.nombre.toLowerCase().includes('man'))).toBeTrue();
   });
 
   it('debería devolver todos los héroes si `searchHeroes()` recibe un string vacío', () => {
-    const resultado = service.searchHeroes('');
+    const resultado = service.searchByName('');
     expect(resultado.length).toBe(service.getHeroes().length);
   });
 });

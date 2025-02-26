@@ -33,7 +33,7 @@ export class MenuHeroesComponent {
 
   constructor() {
     effect(() => {
-      this.heroesFiltrados.set(this.heroesService.searchHeroes(this.value()));
+      this.heroesFiltrados.set(this.heroesService.searchByName(this.value()));
       this.updatePaginatedHeroes();
     });
   }

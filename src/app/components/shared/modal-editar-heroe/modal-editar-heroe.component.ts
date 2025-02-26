@@ -34,4 +34,13 @@ export class ModalEditarHeroeComponent {
       this.dialogRef.close(this.heroe);
     }
   }
+
+  onKeyPress(event: KeyboardEvent) {
+    const regex = /^[a-zA-Z0-9 ]+$/;
+    const key = event.key;
+  
+    if (!regex.test(key)) {
+      event.preventDefault();
+    }
+  }
 }

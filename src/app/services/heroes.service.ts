@@ -44,7 +44,7 @@ export class HeroesService {
   //Consultar todos los súper héroes que contienen, en su nombre, el valor
   //de un parámetro enviado en la petición. Por ejemplo, si enviamos
   //“man” devolverá “Spiderman”, “Superman”, “Manolito el fuerte”, etc.
-  searchHeroes(keyword: string) : Heroe[] {
+  searchByName(keyword: string) {
     if (!keyword.trim()) {
       return this.heroes;
     }
