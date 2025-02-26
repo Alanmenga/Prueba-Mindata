@@ -4,11 +4,6 @@
             <mat-label>Buscar</mat-label>
             <mat-icon matPrefix>search</mat-icon>
             <input matInput type="text" [(ngModel)]="value" placeholder="Escribe aquí...">
-            @if (value) {
-              <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-                <mat-icon>close</mat-icon>
-              </button>
-            }
           </mat-form-field>
           <button mat-button (click)="agregarHeroe()">Agregar Heroe</button>
     </div>
@@ -32,6 +27,7 @@
             </mat-grid-tile>
           </mat-grid-list>
           
-          <mat-paginator #paginator [length]="heroes().length" [pageSize]="3" [pageSizeOptions]="[3, 6, 9]" showFirstLastButtons></mat-paginator>
+          <!-- Paginador -->
+          <mat-paginator #paginator [length]="heroesFiltrados().length" [pageSize]="3" [pageSizeOptions]="[3, 6, 9]" showFirstLastButtons></mat-paginator>          
     </div>
 </div>

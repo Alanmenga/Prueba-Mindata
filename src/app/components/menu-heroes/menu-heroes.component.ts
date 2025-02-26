@@ -24,8 +24,8 @@ export class MenuHeroesComponent {
   private heroesService = inject(HeroesService)
   readonly dialog = inject(MatDialog);
 
-  heroes = signal(this.heroesService.getHeroes());
-  value = '';
+  heroesFiltrados = signal(this.heroesService.getHeroes());
+  value = signal('');
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -33,22 +33,23 @@ export class MenuHeroesComponent {
 
   constructor() {
     effect(() => {
+      this.heroesFiltrados.set(this.heroesService.searchByName(this.value()));
       this.updatePaginatedHeroes();
     });
   }
 
   ngAfterViewInit() {
-    this.paginator.page.subscribe(() => {
+    setTimeout(() => {
       this.updatePaginatedHeroes();
+      this.paginator.page.subscribe(() => this.updatePaginatedHeroes());
     });
-    //esto va dos veces para que se ejecute en una primera carga
-    this.updatePaginatedHeroes(); 
   }
 
   updatePaginatedHeroes() {
-    const startIndex = this.paginator ? this.paginator.pageIndex * this.paginator.pageSize : 0;
-    const endIndex = this.paginator ? startIndex + this.paginator.pageSize : this.heroes().length;
-    this.paginatedHeroes.set(this.heroes().slice(startIndex, endIndex));
+    if (!this.paginator) return; 
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
+    this.paginatedHeroes.set(this.heroesFiltrados().slice(startIndex, endIndex));
   }
   
   eliminarHeroe(id: number) {
@@ -58,7 +59,7 @@ export class MenuHeroesComponent {
 
     dialogRef.afterClosed().subscribe((eliminadoHeroe) => {
       if (eliminadoHeroe) {
-        this.heroes.set(this.heroesService.getHeroes());
+        this.heroesFiltrados.set(this.heroesService.getHeroes());
         this.updatePaginatedHeroes();
       }
     });
@@ -69,7 +70,7 @@ export class MenuHeroesComponent {
 
     dialogRef.afterClosed().subscribe((nuevoHeroe) => {
       if (nuevoHeroe) {
-        this.heroes.set(this.heroesService.getHeroes());
+        this.heroesFiltrados.set(this.heroesService.getHeroes());
         this.updatePaginatedHeroes();
       }
     });
@@ -82,7 +83,7 @@ export class MenuHeroesComponent {
 
     dialogRef.afterClosed().subscribe((editadoHeroe) => {
       if (editadoHeroe) {
-        this.heroes.set(this.heroesService.getHeroes());
+        this.heroesFiltrados.set(this.heroesService.getHeroes());
         this.updatePaginatedHeroes();
       }
     });

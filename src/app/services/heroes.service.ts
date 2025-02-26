@@ -68,4 +68,13 @@ export class HeroesService {
     this.heroes.splice(index, 1);
     return true;
   }
+
+  searchByName(keyword: string) {
+    if (!keyword.trim()) {
+      return this.heroes;
+    }
+    return this.heroes.filter(hero =>
+      hero.nombre.toLowerCase().includes(keyword.toLowerCase())
+    );
+  }
 }
